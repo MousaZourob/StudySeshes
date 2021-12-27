@@ -1,1 +1,1 @@
-# StudySeshs
+# StudySeshes
