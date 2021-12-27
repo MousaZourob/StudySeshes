@@ -1,1 +1,1 @@
-# CodingPrep
+# StudySeshs
