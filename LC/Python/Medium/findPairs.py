@@ -8,7 +8,7 @@ class Solution:
                 if n[key] > 1:
                     ans += 1
             else:
-                if key - k in n:
+                if key + k in n:
                     ans += 1
                     
         return ans
