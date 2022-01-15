@@ -5,7 +5,7 @@ class Solution:
             neighbours[n1].append(n2)
             neighbours[n2].append(n1)
         
-        def dfs(start, end, seen):
+        def dfs(node, end, seen):
             if node == end:
                 return True
             if node in seen:
