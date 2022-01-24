@@ -1,12 +1,15 @@
-def maxProduct(self, nums: List[int]) -> int:
-    ans = max(nums)
-    currMin, currMax = 1, 1
-    
-    for num in nums:
-        if num == 0:
-            currMin, currMax = 1, 1
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        max_prod = max(nums)
+        curr_min, curr_max = 1,1
         
-        currMin, currMax = min(num * currMin, num * currMax, num), max(num * currMin, num * currMax, num)
-        ans = max(ans, currMax) 
+        for num in nums:
+            if num == 0:
+                curr_min, curr_max = 1,1
+            else:
+                tmp = num*curr_max
+                curr_max = max(tmp, curr_min*num, num)
+                curr_min = min(tmp, curr_min*num, num)
+                max_prod = max(max_prod, curr_max)
         
-    return ans
+        return max_prod
