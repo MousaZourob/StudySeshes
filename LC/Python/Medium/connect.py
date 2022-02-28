@@ -1,16 +1,35 @@
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
-        if root == None: return root
+        ans = []
+        q = collections.deque()
+        q.append(root)
         
-        lNode = root
-        while lNode.left != None:
-            head = lNode
-            while head != None:
-                head.left.next = head.right
-                if head.next != None:
-                    head.right.next = head.next.left
-                head = head.next
+        while q:
+            level_size = len(q)
+            curr_level = []
             
-            lNode = lNode.left
+            for _ in range(level_size):
+                curr = q.popleft()
+                
+                if curr:
+                    curr_level.append(curr)
+                    
+                    if curr.left:
+                        q.append(curr.left)
+                    if curr.right:
+                        q.append(curr.right)
+            
+            for i in range(len(curr_level)-1):
+                curr_level[i].next = curr_level[i+1]
         
         return root
