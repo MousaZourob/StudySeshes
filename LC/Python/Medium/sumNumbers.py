@@ -5,22 +5,15 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def sumNumbers(self, root: Optional[TreeNode]) -> int:
-        ans = []
-        
-        def dfs(curr, curr_path, ans):
-            if not curr: return
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:    
+        def dfs(curr, curr_sum):
+            if not curr: return 0
             
-            curr_path.append(str(curr.val))
+            curr_sum = 10 * curr_sum + curr.val
             
             if not curr.right and not curr.left:
-                ans.append(int(''.join(curr_path)))
-            else:
-                dfs(curr.right, curr_path, ans)
-                dfs(curr.left, curr_path, ans)
+                return curr_sum
+            
+            return dfs(curr.right, curr_sum) + dfs(curr.left, curr_sum)
         
-            curr_path.pop()
-        
-        dfs(root, [], ans)
-        
-        return sum(ans)
+        return dfs(root, 0)
