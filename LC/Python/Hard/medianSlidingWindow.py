@@ -1,5 +1,11 @@
 from sortedcontainers import SortedList
 class Solution:
+    def balanceTree(self, h1, h2):
+        while len(h1) > len(h2) + 1:
+                heapq.heappush(h2, -heapq.heappop(h1))
+        while len(h2) > len(h1) + 1:
+            heapq.heappush(h1, -heapq.heappop(h2))
+
     def medianSlidingWindow(self, nums: List[int], k: int) -> List[float]:
         ans = []
         
@@ -14,10 +20,7 @@ class Solution:
             else:
                 heapq.heappush(max_heap, -num)
 
-            while len(max_heap) > len(min_heap) + 1:
-                heapq.heappush(min_heap, -heapq.heappop(max_heap))
-            while len(min_heap) > len(max_heap) + 1:
-                heapq.heappush(max_heap, -heapq.heappop(min_heap))
+            self.balanceTree(max_heap, min_heap)
             
             if i + 1 >= k:
                 if len(max_heap) > len(min_heap):
@@ -39,9 +42,6 @@ class Solution:
                     min_heap.pop()
                     heapq.heapify(min_heap)
             
-            while len(max_heap) > len(min_heap) + 1:
-                heapq.heappush(min_heap, -heapq.heappop(max_heap))
-            while len(min_heap) > len(max_heap) + 1:
-                heapq.heappush(max_heap, -heapq.heappop(min_heap))       
+            self.balanceTree(max_heap, min_heap)   
             
         return ans
