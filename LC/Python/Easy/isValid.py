@@ -1,5 +1,19 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        while "()" in s or "{}" in s or '[]' in s:
-            s = s.replace("()", "").replace('{}', "").replace('[]', "")
-        return s == ''
+        valid_combs = {
+            ']' : '[',
+            ')' : '(',
+            '}' : '{'
+        }
+        stack = []
+        
+        for c in s:
+            if c in valid_combs:
+                if stack and stack[-1] == valid_combs[c]:
+                    stack.pop()
+                else:
+                    return False
+            else:
+                stack.append(c)
+        
+        return True if not stack else False
