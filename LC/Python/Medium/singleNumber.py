@@ -1,20 +1,17 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> List[int]:
-        n1xn2 = 0
+        n1n2 = 0
+        ans = [0, 0]
         
         for num in nums:
-            n1xn2 ^= num
+            n1n2 ^= num
         
-        right = 1
-        while (right & n1xn2) == 0:
-            right = right << 1
-        
-        num1, num2 = 0, 0
+        n1n2 &= -n1n2
         
         for num in nums:
-            if (num & right) != 0:
-                num1 ^= num
+            if n1n2 & num:
+                ans[0] ^= num
             else:
-                num2 ^= num
+                ans[1] ^= num
         
-        return [num1, num2]
+        return ans
